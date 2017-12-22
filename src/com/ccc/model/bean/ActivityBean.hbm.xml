@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014/03/06 20:03:31 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.ccc.model.bean.ActivityBean" table="Activities">
+        <id name="act_id" type="java.lang.Integer">
+            <column name="act_id" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="member" class="com.ccc.model.bean.MemberBean" lazy="false">
+            <column name="M_ID" />
+        </many-to-one>
+        <property name="act_property" type="int">
+            <column name="act_property" />
+        </property>
+        <property name="act_title" type="java.lang.String">
+            <column name="act_title" />
+        </property>
+        <property name="act_time" type="java.sql.Timestamp">
+            <column name="act_time" />
+        </property>
+        <property name="act_location" type="java.lang.String">
+            <column name="act_location" />
+        </property>
+        <property name="act_content" type="java.lang.String">
+            <column name="act_content" />
+        </property>
+        <property name="act_deadline" type="java.sql.Timestamp">
+            <column name="act_deadline" />
+        </property>
+        <set name="posts" table="Posts" cascade="all" inverse="true">
+			<key column="act_id" />
+			<one-to-many class="com.ccc.model.bean.PostBean" />
+		</set>
+
+<!-- 秀特 -->		
+		<set name="warningNotice" table="WarningNotice" inverse="true" cascade="all">
+            <key>
+                <column name="act_id" />
+            </key>
+            <one-to-many class="com.ccc.model.bean.WarningNoticeBean" />
+        </set>
+        
+<!-- 凱 -->
+		<set name="activityParticipate" table="ActivityParticipate" cascade="all" inverse="true">
+			<key column="act_id" />
+			<one-to-many class="com.ccc.model.bean.ActivityParticipateBean" />
+		</set>  
+		<set name="activityNotice" table="ActivityNotice" cascade="all" inverse="true">
+			<key column="act_id" />
+			<one-to-many class="com.ccc.model.bean.ActivityNoticeBean" />
+		</set>
+    </class>
+</hibernate-mapping>

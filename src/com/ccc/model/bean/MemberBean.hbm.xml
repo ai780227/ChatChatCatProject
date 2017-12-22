@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014/2/26 ?U?? 04:56:56 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.ccc.model.bean.MemberBean" table="Members">
+    
+        <id name="m_id" type="java.lang.String">
+            <column name="M_ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="m_pwd" type="binary">
+            <column name="M_PWD" />
+        </property>
+        <property name="m_name" type="java.lang.String">
+            <column name="M_NAME" />
+        </property>
+        <property name="m_intro" type="java.lang.String">
+            <column name="M_INTRO" />
+        </property>
+        <property name="m_email" type="java.lang.String">
+            <column name="M_EMAIL" />
+        </property>
+        <property name="m_birth" type="java.sql.Date">
+            <column name="M_BIRTH" />
+        </property>
+        <property name="m_sex" type="java.lang.String">
+            <column name="M_SEX" />
+        </property>
+        <property name="m_pic_path" type="java.lang.String">
+            <column name="M_PIC_PATH" />
+        </property>
+        <property name="m_authority" type="int">
+            <column name="M_AUTHORITY" />
+        </property>
+        <property name="m_block_time" type="java.sql.Timestamp">
+            <column name="M_BLOCK_TIME" />
+        </property>
+        <property name="m_violation_count" type="int">
+            <column name="M_VIOLATION_COUNT" />
+        </property>
+        <property name="cf_birth" type="int" insert="false">
+            <column name="CF_BIRTH" />
+        </property>
+        <property name="cf_email" type="int" insert="false">
+            <column name="CF_EMAIL" />
+        </property>
+        <property name="cf_intro" type="int" insert="false">
+            <column name="CF_INTRO" />
+        </property>
+        <property name="cf_sex" type="int" insert="false">
+            <column name="CF_SEX" />
+        </property>
+        <property name="cf_post" type="int" insert="false">
+            <column name="CF_POST" />
+        </property>
+        <property name="cf_res" type="int" insert="false">
+            <column name="CF_RES" />
+        </property>
+        <property name="cf_act" type="int" insert="false">
+            <column name="CF_ACT" />
+        </property>
+        <property name="cf_theme" type="int" insert="false">
+            <column name="CF_THEME" />
+        </property>
+        
+<!-- 關聯  Member to Cat 一對多     -->   
+        <set name="cats" table="Cats" cascade="all" inverse="true">
+        	<key><column name="m_id"/></key>
+        	<one-to-many class="com.ccc.model.bean.CatBean"/>
+        </set>
+
+ <!-- 關聯  Member to Picture 一對多   -->
+ 		<set name="pictures" table="Pictures" cascade="all" inverse="true">
+        	<key><column name="m_id"/></key>
+        	<one-to-many class="com.ccc.model.bean.PictureBean"/>
+        </set>
+        
+        
+<!-- 秀特   -->
+		<set name="reports" table="Reports" inverse="false" cascade="all">
+            <key><column name="M_ID" /></key>
+            <one-to-many class="com.ccc.model.bean.ReportBean" />
+        </set>
+        <set name="warningNotice" table="WarningNotice" inverse="false" cascade="all">
+            <key><column name="M_ID" /></key>
+            <one-to-many class="com.ccc.model.bean.WarningNoticeBean" />
+        </set>
+        <set name="posts" table="Posts" inverse="false" cascade="all">
+            <key><column name="M_ID" /></key>
+            <one-to-many class="com.ccc.model.bean.PostBean" />
+        </set>
+        <set name="activities" table="Activities" inverse="false" cascade="all">
+            <key><column name="M_ID" /></key>
+            <one-to-many class="com.ccc.model.bean.ActivityBean" />
+        </set>
+        
+        
+<!-- 以下是 簡晸芳專用 -->
+		<set name="friendshipBean_a" table="Friendship" cascade="all" inverse="true">
+            <key>
+                <column name="m_id_a" />
+            </key>
+            <one-to-many class="com.ccc.model.bean.FriendshipBean" />
+        </set>
+        <set name="friendshipBean_b" table="Friendship" cascade="all" inverse="true">
+            <key>
+                <column name="m_id_b" />
+            </key>
+            <one-to-many class="com.ccc.model.bean.FriendshipBean" />
+        </set>
+        <set name="friendshipNoticeBean_m_id_to" table="FriendshipNotice" cascade="all" inverse="true">
+            <key>
+                <column name="m_id_to" />
+            </key>
+            <one-to-many class="com.ccc.model.bean.FriendshipNoticeBean" />
+        </set>
+        <set name="friendshipNoticeBean_m_id_from" table="FriendshipNotice" cascade="all" inverse="true">
+            <key>
+                <column name="m_id_from" />
+            </key>
+            <one-to-many class="com.ccc.model.bean.FriendshipNoticeBean" />
+        </set>
+        
+
+         <set name="SMB_m_id_from" table="Messages" cascade="all" inverse="true">
+            <key>
+                <column name="m_id_from" />
+            </key>
+            <one-to-many class="com.ccc.model.bean.MessageBean" />
+        </set>
+         <set name="SMB_m_id_to" table="Messages" cascade="all" inverse="true">
+            <key>
+                <column name="m_id_to" />
+            </key>
+            <one-to-many class="com.ccc.model.bean.MessageBean" />
+        </set>
+        <set name="W_m_id" table="WhoLike" cascade="all" inverse="true">
+            <key>
+                <column name="m_id" />
+            </key>
+            <one-to-many class="com.ccc.model.bean.WhoLikeBean" />
+        </set>
+        
+  <!-- 至此為簡晸芳專用 -->
+  
+  <!-- 阿凱 -->
+  		<set name="nots" table="ActivityNotice" cascade="all">
+			<key column="m_id" />
+			<one-to-many class="com.ccc.model.bean.ActivityNoticeBean" />
+		</set>
+		<set name="pars" table="ActivityParticipate" cascade="all">
+			<key column="m_id" />
+			<one-to-many class="com.ccc.model.bean.ActivityParticipateBean" />
+		</set>
+
+    </class>
+</hibernate-mapping>

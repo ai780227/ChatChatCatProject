@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014/3/3 ?U?? 05:45:55 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.ccc.model.bean.FriendshipNoticeBean" table="FriendshipNotice">
+		<id name="fri_notid" type="int">
+			<column name="fri_notid" />
+			<generator class="native" />
+		</id>
+		<property name="m_name_from" type="java.lang.String">
+			<column name="m_name_from" />
+		</property>
+		<property name="fri_read" type="int">
+			<column name="fri_read" />
+		</property>
+		<property name="fri_type" type="int">
+			<column name="fri_type" />
+		</property>
+		<many-to-one name='member_to' class='com.ccc.model.bean.MemberBean' column='m_id_to'>
+			</many-to-one>
+		<many-to-one name='member_from' class='com.ccc.model.bean.MemberBean' column='m_id_from'>
+			</many-to-one>
+		
+		
+		
+		
+		
+	</class>
+</hibernate-mapping>
+
+
+
+<!-- <property name="m_id_a" type="java.lang.String">
+			<column name="m_id_a" />
+		</property>
+		<property name="m_id_b" type="java.lang.String">
+			<column name="m_id_b" />
+		</property> -->

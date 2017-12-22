@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014/03/07 18:30:39 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.ccc.model.bean.ResponseNoticeBean" table="ResponseNotice">
+		<id name="res_notid" type="int">
+			<column name="res_notid" />
+			<generator class="native" />
+		</id>
+		<property name="m_id_to" type="java.lang.String">
+			<column name="m_id_to" />
+		</property>
+		<property name="m_id_from" type="java.lang.String">
+			<column name="m_id_from" />
+		</property>
+		<property name="m_name_from" type="java.lang.String">
+			<column name="m_name_from" />
+		</property>
+		<property name="post_id" type="int">
+			<column name="post_id" />
+		</property>
+		<many-to-one name="responseBean" class="com.ccc.model.bean.ResponseBean" fetch="join">
+			<column name="res_id" />
+		</many-to-one>
+		<property name="res_read" type="int">
+			<column name="res_read" />
+		</property>
+	</class>
+</hibernate-mapping>

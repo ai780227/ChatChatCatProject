@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014/02/26 22:26:56 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.ccc.model.bean.ResponseBean" table="Responses">
+		<id name="res_id" type="int">
+			<column name="res_id" />
+			<generator class="native" />
+		</id>
+		<many-to-one class="com.ccc.model.bean.PostBean" fetch="join" name="postBean">
+			<column name="post_id" />
+		</many-to-one>
+		<many-to-one class="com.ccc.model.bean.MemberBean" fetch="join" name="memberBean">
+			<column name="m_id" />
+		</many-to-one>
+		<property generated="never" name="res_content" type="java.lang.String">
+			<column name="res_content" />
+		</property>
+		<property generated="never" name="res_time" type="java.sql.Timestamp" insert="false">
+			<column name="res_time" />
+		</property>
+		<set name="responseNotice" table="ResponseNotice" cascade="all" inverse="true">
+			<key column="res_id" />
+			<one-to-many class="com.ccc.model.bean.ResponseNoticeBean" />
+		</set>
+	</class>
+</hibernate-mapping>

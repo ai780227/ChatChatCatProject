@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014/3/7 ?U?? 05:15:42 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.ccc.model.bean.WarningNoticeBean" table="WarningNotice">
+        <id name="war_notid" type="int">
+            <column name="war_notid" />
+            <generator class="identity" />
+        </id>
+        <property name="post_type" type="int"  >
+            <column name="post_type" />
+        </property>
+        <property name="post_time" type="java.sql.Timestamp"  >
+            <column name="post_time" />
+        </property>
+        <property name="post_content" type="java.lang.String"  >
+            <column name="post_content" />
+        </property>
+        <property name="like_count" type="int"  >
+            <column name="like_count" />
+        </property>
+        <property name="rep_cause" type="java.lang.String"  >
+            <column name="rep_cause" />
+        </property>
+        <property name="post_property" type="int"  >
+            <column name="post_property" />
+        </property>
+         <property name="war_read" type="int"  >
+            <column name="war_read"/>
+        </property>
+        <many-to-one name="member" class="com.ccc.model.bean.MemberBean"  >
+            <column name="m_id" />
+        </many-to-one>
+         <many-to-one name="activity" class="com.ccc.model.bean.ActivityBean" lazy="false" >
+            <column name="act_id" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

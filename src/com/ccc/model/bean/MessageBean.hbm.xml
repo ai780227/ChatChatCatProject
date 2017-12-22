@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014/2/26 ?U?? 10:15:45 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.ccc.model.bean.MessageBean" table="Messages">
+        <id name="msg_id" type="int">
+            <column name="msg_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name='member_to' class='com.ccc.model.bean.MemberBean' column='m_id_to'>
+			</many-to-one>
+        <many-to-one name='member_from' class='com.ccc.model.bean.MemberBean' column='m_id_from'>
+			</many-to-one>
+		
+        <property name="msg_time" type="java.sql.Timestamp" insert="false">
+            <column name="msg_time" />
+        </property>
+        <property name="msg_content" type="java.lang.String">
+            <column name="msg_content" />
+        </property>
+    </class>
+</hibernate-mapping>
+
+<!-- 
+ <id name="m_id_a" type="java.lang.String">
+            <column name="m_id_a" />
+            <generator class="assigned" />
+        </id>
+<property name="msg_id" type="int">
+            <column name="msg_id" />
+        </property>
+        <property name="m_id_b" type="java.lang.String">
+            <column name="m_id_b" />
+        </property>
+
+
+ -->

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014/3/10 ?W?? 04:23:26 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.ccc.model.bean.NewsBean" table="News">
+        <id name="news_id" type="int">
+            <column name="news_id" />
+            <generator class="identity" />
+        </id>
+        <property name="mgr_id" type="java.lang.String">
+            <column name="mgr_id" />
+        </property>
+        <property name="news_title" type="java.lang.String">
+            <column name="news_title" />
+        </property>
+        <property name="news_time" type="java.sql.Timestamp" insert="false">
+            <column name="news_time" />
+        </property>
+        <property name="news_content" type="java.lang.String">
+            <column name="news_content" />
+        </property>
+        <property name="news_source" type="java.lang.String">
+            <column name="news_source" />
+        </property>
+        <property name="news_link" type="java.lang.String">
+            <column name="news_link" />
+        </property>
+    </class>
+</hibernate-mapping>

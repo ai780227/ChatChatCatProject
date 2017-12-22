@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014/02/26 22:26:56 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.ccc.model.bean.FavoriteBean" table="Favorites">
+		<composite-id>
+			<key-many-to-one class="com.ccc.model.bean.PostBean" column="post_id" name="postBean" />
+			<key-many-to-one class="com.ccc.model.bean.MemberBean" column="m_id" name="memberBean" />
+		</composite-id>
+	</class>
+</hibernate-mapping>

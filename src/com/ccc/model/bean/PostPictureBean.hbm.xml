@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014/2/26 ?U?? 05:21:12 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+ <class name="com.ccc.model.bean.PostPictureBean" table="PostPictures">
+  <composite-id mapped="false" unsaved-value="undefined">
+   <key-many-to-one class="com.ccc.model.bean.PictureBean"
+    column="pic_id" lazy="false" name="pictureBean"/>
+   <key-many-to-one class="com.ccc.model.bean.PostBean" column="post_id"
+    lazy="false" name="postBean"/>
+  </composite-id>
+ </class>
+</hibernate-mapping>

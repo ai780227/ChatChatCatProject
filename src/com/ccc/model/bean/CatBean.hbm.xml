@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014/2/26 ?U?? 05:21:12 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.ccc.model.bean.CatBean" table="Cats">
+        <id name="c_id" type="java.lang.Integer">
+            <column name="C_ID" />
+            <generator class="identity" />
+        </id>
+        
+<!--    Cat to Member 無關聯     
+        <property name="m_id" type="java.lang.String">
+            <column name="M_ID" />
+        </property> -->
+<!-- Cat to Member 多對一       --> 
+        <many-to-one name="member" class="com.ccc.model.bean.MemberBean">
+        	<column name="m_id"/>
+        </many-to-one> 
+        
+        <property name="c_name" type="java.lang.String">
+            <column name="C_NAME" />
+        </property>
+        <property name="c_age" type="java.lang.String">
+            <column name="C_AGE" />
+        </property>
+        <property name="c_breed" type="java.lang.String">
+            <column name="C_BREED" />
+        </property>
+        <property name="c_sex" type="java.lang.String">
+            <column name="C_SEX" />
+        </property>
+        <property name="c_intro" type="java.lang.String">
+            <column name="C_INTRO" />
+        </property>
+        <property name="c_pic_path" type="java.lang.String">
+            <column name="C_PIC_PATH" />
+        </property>
+        
+        <!-- 關聯  Cat to Picture 一對多     -->   
+        <set name="pictures" table="Pictures">
+        	<key><column name="c_id"/></key>
+        	<one-to-many class="com.ccc.model.bean.PictureBean"/>
+        </set>
+    </class>
+</hibernate-mapping>

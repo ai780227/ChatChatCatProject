@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014/2/26 ?U?? 03:30:30 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.ccc.model.bean.ActivityNoticeBean" table="ActivityNotice">
+		<id name="act_notid" type="int">
+			<column name="act_notid" />
+			<generator class="native" />
+		</id>
+		<many-to-one name="member" class="com.ccc.model.bean.MemberBean">
+			<column name="m_id" />
+		</many-to-one>
+		<many-to-one name="activity" class="com.ccc.model.bean.ActivityBean">
+			<column name="act_id" />
+		</many-to-one>
+		<property name="act_read" type="int">
+			<column name="act_read" />
+		</property>
+		<property name="act_time" type="java.sql.Timestamp" insert="false">
+			<column name="act_time" />
+		</property>
+	</class>
+</hibernate-mapping>

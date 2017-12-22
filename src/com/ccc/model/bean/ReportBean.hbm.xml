@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014/3/7 ?U?? 05:15:42 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.ccc.model.bean.ReportBean" table="Reports">
+        <id name="rep_id" type="int">
+            <column name="rep_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="member" class="com.ccc.model.bean.MemberBean" lazy="false" >
+            <column name="m_id" />
+        </many-to-one>
+        <property name="rep_cause" type="java.lang.String" >
+            <column name="rep_cause" />
+        </property>
+        <many-to-one name="post" class="com.ccc.model.bean.PostBean" lazy="false" >
+            <column name="post_id" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

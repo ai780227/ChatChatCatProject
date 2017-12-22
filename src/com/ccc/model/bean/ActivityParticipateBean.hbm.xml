@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014/2/26 ?U?? 04:52:32 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.ccc.model.bean.ActivityParticipateBean" table="ActivityParticipate">
+		<composite-id>
+			<key-many-to-one name="activity"
+				class="com.ccc.model.bean.ActivityBean" column="act_id"/>
+			<key-many-to-one name="member" class="com.ccc.model.bean.MemberBean"
+				column="m_id" />
+		</composite-id>
+		<property name="act_participate" type="int">
+			<column name="act_participate" />
+		</property>
+	</class>
+</hibernate-mapping>

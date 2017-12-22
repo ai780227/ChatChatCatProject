@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014/2/26 ?U?? 05:14:16 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.ccc.model.bean.ManagerBean" table="Managers">
+        <id name="mgr_id" type="java.lang.String">
+            <column name="MGR_ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="mgr_pwd" type="binary">
+            <column name="MGR_PWD" />
+        </property>
+        <property name="mgr_name" type="java.lang.String">
+            <column name="MGR_NAME" />
+        </property>
+        <property name="mgr_email" type="java.lang.String">
+            <column name="MGR_EMAIL" />
+        </property>
+    </class>
+</hibernate-mapping>
