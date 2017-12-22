@@ -1,0 +1,169 @@
+//DWR簡單 實現單向聊天【文章三：業務層、控制層、bean】 功能登錄顯示登錄用戶【無資料庫操作】
+//     聊天業務類 主要業務 源代碼如下： 
+	package com.dwr;  
+	import java.util.Date; 
+	import java.util.HashMap; 
+	import java.util.Map; 
+	import java.util.Map.Entry;  
+	import javax.servlet.http.HttpSession;  
+	import org.directwebremoting.Browser; 
+	import org.directwebremoting.ScriptBuffer; 
+	import org.directwebremoting.ScriptSession; 
+	import org.directwebremoting.ScriptSessions; 
+	import org.directwebremoting.WebContextFactory;  
+	import com.vo.User;
+	
+	public class ChatDwr
+	{ 	
+		public ChatDwr() 
+		{
+			System.out.println("實例化"); 		  	
+		}  	
+		// sessionId和User對象 	
+		public static Map<String, User> map = new HashMap<String, User>();       	
+		// 登陸 	
+		public boolean login(String username) 
+		{
+			// session 		
+			HttpSession session = WebContextFactory.get().getSession(); 		
+			// 鍵同，值不同（註銷，put） 		
+			// 鍵不同，值同（則在別處登陸,提示) 		
+			// 鍵不同，值不同(新用戶,put) 		
+			//activeReverseAjaxEnable 		
+			for (Entry<String, User> user : map.entrySet()) 
+			{
+				String sid = user.getKey(); 			
+				String name = user.getValue().getName();
+				if (name.equalsIgnoreCase(username) && !sid.equals(session.getId()))
+					return true;//在別處登陸 			
+				else if (username.equals("") && sid.equals(session.getId())) 
+				{
+					map.remove(sid);
+					break;
+				}
+			}
+			// 保存用戶
+			ScriptSession ss = WebContextFactory.get().getScriptSession();
+			if (username.length() > 0) 
+			{ 			
+				map.put(session.getId(), new User(ss.getId(),username));
+				ss.setAttribute("username", username); 		
+			} 		
+			// 添加數據到用戶列表
+			Browser.withAllSessions(new Runnable() 
+				{
+					public void run() { 				
+						ScriptSessions.addFunctionCall("addUser", map.values()); 			
+					} 		
+				});         
+			session.setAttribute("username", username); 		
+			return false; 	
+		}		  	 	
+		// 發送消息 	
+		public boolean sendMsg( final String toId,	final String toName, final String msg) 
+		{ 		
+			final HttpSession session = WebContextFactory.get().getSession();
+			final String from = (String) session.getAttribute("username");
+			if (from==null || from.equals(toName))
+				return false; 		
+			Browser.withSession(toId, new Runnable() {
+					public void run() {				 				
+						ScriptBuffer buff = new ScriptBuffer();
+						buff.appendCall("recv", from, toName, msg, new Date());
+						ScriptSession ss = Browser.getTargetSessions().iterator().next();
+						ss.addScript(buff); 
+					} 		
+				});  		
+			return true; 	
+		}  	  	  
+	} 
+
+
+--------------------------- 聊天業控制類 源代碼如下：
+package com.servlets;  
+import java.io.IOException; 
+import java.util.Collection;  
+import javax.servlet.ServletException; 
+import javax.servlet.http.HttpServlet; 
+import javax.servlet.http.HttpServletRequest; 
+import javax.servlet.http.HttpServletResponse; 
+import javax.servlet.http.HttpSession;  
+import org.directwebremoting.Browser; 
+import org.directwebremoting.ScriptSession; 
+import org.directwebremoting.ScriptSessions; 
+import org.directwebremoting.ServerContextFactory; 
+import org.directwebremoting.WebContextFactory;  
+import com.dwr.ChatDwr; 
+ 
+public class ExitGameServlet extends HttpServlet 
+{  	
+	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{ 		
+		final HttpSession session = request.getSession(false); 		
+		if (session != null) 
+		{  			
+			Browser.withAllSessions(new Runnable() 
+				{ 				
+					public void run() 
+					{ 					 					
+						System.out.println("來了"); 					
+						ChatDwr.map.remove(session.getId()); 			
+						session.invalidate();
+						ScriptSessions.addFunctionCall("addUser", ChatDwr.map.values()); 
+					} 
+				});
+		}  	
+	}  
+}
+------------------------ 聊天vo類 源代碼如下：
+package com.vo;  
+public class User 
+{
+ 	private String id;
+	//scriptSessionId
+	private String name;
+	private String sid;
+	//sessionId
+	public String getId() 
+	{ 		
+		return id; 	
+	}  	
+	public void setId(String id) 
+	{
+ 		this.id = id; 	
+	}  	
+	public String getName() 
+	{ 		
+		return name; 
+	}  
+	public void setName(String name)
+	{ 		
+		this.name = name; 
+	}  
+	public User(String id, String name) 
+	{ 
+		super(); 	
+		this.id = id;
+ 		this.name = name;
+	}  	
+	public User()
+	{ 		
+		super(); 	
+		// TODO Auto-generated constructor stub 
+	}
+	public String getSid()
+	{ 	
+		return sid; 
+	}  
+	public void setSid(String sid)
+	{ 	
+		this.sid = sid; 
+	}
+	public User(String id, String name, String sid) 
+	{ 	
+		super(); 	
+		this.id = id; 	
+		this.name = name; 		
+		this.sid = sid; 
+	}  
+} 

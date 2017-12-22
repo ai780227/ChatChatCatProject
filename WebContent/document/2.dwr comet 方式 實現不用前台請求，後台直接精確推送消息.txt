@@ -1,0 +1,293 @@
+突然發現我出書的可能性太小了，寫了幾篇小博文直接就是代碼，沒有啥文字修飾，好吧，
+   綜合從網上看的資料，得出以下總結。
+ 
+   step.1 首先下載  dwr.jar 並在web.xml 中 整合DWR及添加用戶登入、登出監聽器
+   
+ 
+<servlet> 
+	<servlet-name>dwr-invoker</servlet-name> 
+	<servlet-class> org.directwebremoting.servlet.DwrServlet </servlet-class> 
+	<init-param> 
+		<param-name>debug</param-name> 
+		<param-value>true</param-value> 
+	</init-param> 
+	<init-param>
+		<param-name>activeReverseAjaxEnabled</param-name> 
+		<param-value>true</param-value> 
+	</init-param> 
+	<init-param> 
+		<param-name>pollAndCometEnabled</param-name>
+		<param-value>true</param-value> 
+	</init-param> 
+		<load-on-startup>1</load-on-startup> 
+ </servlet> 
+ <servlet-mapping> 
+	<servlet-name>dwr-invoker</servlet-name> 
+	<url-pattern>/dwr/*</url-pattern> 
+</servlet-mapping>
+ <!-- 用戶登入、登出監聽器 --> 
+ <servlet> 
+	<servlet-name>initScriptSessionListener</servlet-name> 
+	<servlet-class> com.success.platform.component.messages.init.InitScriptSession </servlet-class> 
+	<load-on-startup>1</load-on-startup> 
+ </servlet>
+ 
+ step.2
+ 
+  建立 dwr.xml
+ 
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 3.0//EN" "http://www.getahead.ltd.uk/dwr/dwr30.dtd"> 
+<dwr> 
+	<allow> 
+		<create creator="spring" javascript="DwrHelper"> 
+			<param name="beanName" value="messageHelper" /> 
+		</create>
+	</allow>
+ </dwr>  
+ 
+ 
+ 
+ 
+ javascript="DwrHelper"                                      web頁內引用的JS文件名.
+  name="beanName" value="messageHelper"            spring中beanName
+  
+  
+  
+ step.3
+  
+ 建立InitScriptSession.java
+ 用戶登入、登出監聽器
+ 
+public class InitScriptSession extends GenericServlet 
+{
+	 /**
+	 * 
+	 */ 
+	 private static final long serialVersionUID = 1L; 
+	 private static final Logger logger = Logger.getLogger(InitScriptSession.class);
+	 ServletContext application; 
+	 public void init() 
+	 { 
+		Container container = ServerContextFactory.get().getContainer(); 
+		ScriptSessionManager manager = container.getBean(ScriptSessionManager.class); 
+		ScriptSessionListener listener = new ScriptSessionListener()
+			{
+				public void sessionCreated(ScriptSessionEvent ev) 
+				{ 
+					try 
+					{
+						HttpSession session = WebContextFactory.get().getSession(); 
+						ScriptSession scriptSession = ev.getSession(); 
+						String userId = session.getAttribute("userId").toString(); 
+						scriptSession.setAttribute("userId", userId); 
+						logger.info("add " + scriptSession.getId()+ ", put userid into scriptSession");
+					} 
+					catch (Exception e)
+					{
+						logger.warn("會話失效"); 
+					} 
+				}
+				public void sessionDestroyed(ScriptSessionEvent ev)
+				{ 
+					ev.getSession().removeAttribute("userId");
+					logger.info("destroy ScriptSession: " + ev.getSession().getId()); 
+				} 
+			}; 
+		manager.addScriptSessionListener(listener); 
+	 }
+	 
+	 public void service(ServletRequest req, ServletResponse res) 
+	 { 
+		init();
+	 } 
+ }
+ 
+ 
+step.4
+MessageEvent.java
+消息事件
+public class MessageEvent extends ApplicationEvent 
+{ 
+	/** 
+	* 
+	*/
+	private static final long serialVersionUID = 9103980818480475235L;
+	public MessageEvent(Object source) 
+	{ 
+		super(source); 
+	} 
+}
+ 
+ 
+ 
+step.5
+Message.java 消息實體
+public class Message 
+{ 
+	private String receiverId;	//接收人 
+	private String sender;		//發送人 
+	private String content; 	//內容 
+	private Date sendTime;		//發送時間 
+	public Message(String receiverId, String sender, String content) 
+	{ 
+		super(); 
+		this.receiverId = receiverId;
+		this.sender = sender;
+		this.content = content;
+	} 
+	public String getSendTime() 
+	{
+		String sdate=""; 
+		try 
+		{ 
+			if(null == sendTime)sendTime=DateUtil.currentDate(); 
+			sdate=DateUtil.dateToSting(sendTime);
+		} 
+		catch (Exception e) 
+		{ 
+		} 
+		return sdate; 
+	} 
+	public void setSendTime(Date sendTime) 
+	{ 
+		this.sendTime = sendTime;
+	}
+	public String getReceiverId()
+	{ 
+		return receiverId;
+	} 
+	public void setReceiverId(String receiverId)
+	{ 
+		this.receiverId = receiverId; 
+	}
+	public String getSender() 
+	{
+		return sender; 
+	}
+	public void setSender(String sender) 
+	{
+		this.sender = sender; 
+	}
+	public String getContent()
+	{
+		return content; 
+	}
+	public void setContent(String content) 
+	{ 
+		this.content = content; 
+	} 
+}
+ 
+ 
+step.6
+ 
+MessageHelper.java 消息助手
+ 
+@Service("messageHelper") 
+//要和dwr.xml 的beanName 保持一致 
+@Scope("singleton") 
+public class MessageHelper implements ApplicationContextAware 
+{
+	private static ApplicationContext applicationContext; 
+	public void setApplicationContext(ApplicationContext ctx) 
+	{
+		MessageHelper.applicationContext = ctx; 
+	} 
+	public static void sendMessage(Message mes)
+	{
+		if(applicationContext != null)
+		{
+			applicationContext.publishEvent(new MessageEvent(mes)); 
+		}
+	}
+}
+ 
+ 
+step.7
+ 
+NotifyClient.java  消息監聽器
+ 
+@Service 
+public class NotifyClient implements ApplicationListener<MessageEvent> 
+{ 
+	public void onApplicationEvent(MessageEvent event) 
+	{ 
+		if (event instanceof MessageEvent) 
+		{
+			send((Message) event.getSource()); 
+		}
+	}
+	private void send(final Message msg) 
+	{
+		Browser.withAllSessionsFiltered(new ScriptSessionFilter() 
+			{
+				public boolean match(ScriptSession session) 
+				{
+					if (session.getAttribute("userId") == null) 
+						return false;
+					else 
+						return (session.getAttribute("userId")).equals(msg.getReceiverId()); 
+				}
+			}, new Runnable() 
+				{ 
+					public void run() 
+					{ 
+						Collection<ScriptSession> colls = Browser.getTargetSessions();
+						for (ScriptSession scriptSession : colls) 
+						{ 
+							scriptSession.addScript(initFunctionCall("showMessage", msg.getContent(),msg.getSender(),msg.getSendTime())); 
+						} 
+					}
+				});
+	}
+	private ScriptBuffer initFunctionCall(String funcName, Object... params) 
+	{ 
+		ScriptBuffer script = new ScriptBuffer(); 
+		script.appendCall(funcName, params);
+		return script; 
+	}
+}
+ 
+ 
+step.8
+ 
+index.jsp
+這個頁面，最好是個frameset 的主頁面
+ 
+<%@ page contentType="text/html; charset=UTF-8"%> 
+<%@taglib prefix="s" uri="/struts-tags"%> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html> 
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GB18030"> 
+	<title>DWR's HelloWorld</title> 
+	<script type='text/javascript' src='${path}/dwr/engine.js'></script> 
+	<script type='text/javascript' src='${path}/dwr/util.js'></script> 
+	<script type='text/javascript' src='${path}/scripts/common/MessageHelper.js'></script> 
+	<script type='text/javascript'> 
+		window.onload=activeReverseAjax; 
+		function activeReverseAjax()
+		{ 
+			dwr.engine.setActiveReverseAjax(true); 
+			dwr.engine.setNotifyServerOnPageUnload(true);
+			//頁面銷毀或刷新時銷毀當前ScriptSession 
+			dwr.engine.setErrorHandler(null); 
+		}
+		function showMessage(content,sender,sendtime) 
+		{
+			$.messager.show({ title:sender + ' ' +sendtime, msg:content, timeout:0, showType:'slide' }); 
+		} 
+	</script>
+ </head>
+ <body>
+ </body>
+ </html>
+ 
+  
+step.9
+ 
+測試的話，可在 運行後台 servie 調用
+ 
+MessageHelper.sendMessage(new Message("消息發送人的ID，對應Session內的userId","系統消息", "你好 觸摸不到的狂野 怎麼样收到信息了嗎？。" ));
+ 
+ 
