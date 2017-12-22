@@ -1,0 +1,214 @@
+.searchbar{
+/*background: -moz-radial-gradient(center, ellipse cover,  rgba(255,230,181,0.8) 0%, rgba(255,230,181,0.4) 99%, rgba(255,230,181,0.4) 100%); /* FF3.6+ */
+/*background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(255,230,181,0.8)), color-stop(99%,rgba(255,230,181,0.4)), color-stop(100%,rgba(255,230,181,0.4))); /* Chrome,Safari4+ */
+/*background: -webkit-radial-gradient(center, ellipse cover,  rgba(255,230,181,0.8) 0%,rgba(255,230,181,0.4) 99%,rgba(255,230,181,0.4) 100%); /* Chrome10+,Safari5.1+ */
+/*background: -o-radial-gradient(center, ellipse cover,  rgba(255,230,181,0.8) 0%,rgba(255,230,181,0.4) 99%,rgba(255,230,181,0.4) 100%); /* Opera 12+ */
+/*background: -ms-radial-gradient(center, ellipse cover,  rgba(255,230,181,0.8) 0%,rgba(255,230,181,0.4) 99%,rgba(255,230,181,0.4) 100%); /* IE10+ */
+/*background: radial-gradient(ellipse at center,  rgba(255,230,181,0.8) 0%,rgba(255,230,181,0.4) 99%,rgba(255,230,181,0.4) 100%); /* W3C */
+/*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ccffe6b5', endColorstr='#66ffe6b5',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+background: transparent;
+/*padding-left: 30px;*/
+/*padding-bottom: 10px;*/
+position:fixed;
+top:0px;
+right:0px;
+z-index: 3;
+border-radius: 10px;
+}
+
+.searchbartext{
+position:relative;
+vertical-align:middle;
+top: 4px;
+font-size: 14px;
+font-family: "微軟正黑體";
+width:110px;
+background: transparent;
+}
+
+.block{
+position: relative;
+padding:10px;
+width: 610px;
+border-style:dotted;
+border-width:0px 0px 2px 0px;
+border-color:orange;
+background: #FAF1E1;
+}
+
+.outblock{
+display: inline-block;
+height: 200px;
+overflow: hidden;
+border-style:outset;
+border-width:5px;
+border-color:rgb(255,174,201);
+border-radius: 25px;
+position:relative;
+margin: 15px 0px 0px 0px;
+box-shadow: 5px 5px 25px black;
+}
+
+.outblock2{
+height: auto;
+}
+
+.outoutblock{
+	position:relative;
+	left:25px;
+}
+
+.outblockspand{
+	position:absolute;
+	bottom:25px;
+	right:-50px;
+}
+
+.iconinvisible{
+	opacity: 0.2;
+	filter: alpha(opacity =    20);
+}
+
+.iconinvisible:hover{
+	opacity: 1;
+	filter: alpha(opacity =    100);
+}
+
+.iwanttorespond {
+	position: relative;
+	margin: 0px;
+	padding:10px;
+	width: 610px;
+	background: rgb(240,250,211);
+}
+
+.responseblock{
+	position: relative;
+	margin: 0px;
+	padding:10px;
+	width: 610px;
+	border-style:dashed;
+	border-width:1px 0px 0px 0px;
+	border-color:orange;
+	background: rgb(240,250,211);
+}
+
+.memberphoto {
+	width: auto;
+	height: 96px;
+	border-style: double;
+	border-width:3px;
+	border-color:pink;
+	border-radius: 15px;
+}
+
+.responsememberphoto {
+	width: auto;
+	height: 36px;
+	border-style:outset;
+	border-width:3px;
+	border-color: rgb(158,203,22);
+	border-radius: 5px;
+}
+
+.searchicon {
+	padding-left:5px;
+	padding-right:2px;
+	position:relative;
+	top:9px;
+}
+
+.spandarrow {
+	opacity: 0.4;
+	filter: alpha(opacity = 0.4);
+}
+
+.manyicon {
+	position:absolute;
+	right:15px;
+	top:20px;
+	width: 30px;
+	line-height:42px;
+	z-index:1;
+}
+
+.likeblock {
+	position:absolute;
+	width:auto;
+	right:50px;
+}
+
+.liketext {
+	color:red;
+	font-weight: bold;
+	text-decoration: none;
+	opacity: 0.1;
+	filter: alpha(opacity =    10);
+	font-size: 72px;
+	margin-right:-5px;
+}
+
+.liketext:hover {
+	opacity: 0.2;
+	filter: alpha(opacity =    20);
+}
+
+.postcontent {
+	margin:10px;
+	position:relative;
+	font-size: 22px;
+	font-family: "微軟正黑體";
+}
+
+.responsecontent{
+	position: relative;
+	top: -15px;
+	left: 25px;
+	font-size: 16px;
+	font-family: "微軟正黑體";
+}
+
+.respondtextarea {
+	position: relative;
+	left: 52px;
+	resize: none;
+	max-height:240px;
+	margin-top:5px;
+	background: none;
+}
+
+.summitresponse {
+	font-size: 12px;
+	position: relative;
+	left: 72px;
+	top: -10px;
+	background: none;
+}
+
+.deleteresponse {
+	position:absolute;
+	right:25px;
+	top:25px;
+}
+
+.membername {
+	color: rgb(255,174,201);
+	position:relative;
+	vertical-align:middle;
+	top: -40px;
+	left:10px;
+	font-size: 24px;
+	font-family: "微軟正黑體";
+	font-weight: bold;
+}
+
+.responsemembername {
+	color: rgb(34,177,76);
+	position:relative;
+	vertical-align:middle;
+	top: -16px;
+	left: 5px;
+	font-size: 16px;
+	font-family: "微軟正黑體";
+	font-weight: bold;
+}

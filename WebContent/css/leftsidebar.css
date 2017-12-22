@@ -1,0 +1,90 @@
+/*
+ * Base
+ */
+
+
+
+.page-main {
+    position: relative;
+    width: 350px;
+}
+
+.page-main > aside {
+background: -moz-linear-gradient(left,  rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 68%, rgba(255,255,255,0.8) 84%, rgba(255,255,255,0) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,1)), color-stop(68%,rgba(255,255,255,0.9)), color-stop(84%,rgba(255,255,255,0.8)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0.9) 68%,rgba(255,255,255,0.8) 84%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0.9) 68%,rgba(255,255,255,0.8) 84%,rgba(255,255,255,0) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0.9) 68%,rgba(255,255,255,0.8) 84%,rgba(255,255,255,0) 100%); /* IE10+ */
+background: linear-gradient(to right,  rgba(255,255,255,1) 0%,rgba(255,255,255,0.9) 68%,rgba(255,255,255,0.8) 84%,rgba(255,255,255,0) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 */
+	
+    width: 450px;
+    height: 100%;
+    top: 0;
+    left: -350px;
+    position: fixed;
+
+}
+
+.page-main > aside ul {
+	margin:0;
+  padding-top:0px; 
+  padding-left:0px; 
+  padding-right:0px; 
+  padding-bottom:0px;
+    left: 80px;
+    position: absolute;
+    width: 215px;
+    overflow:hidden;
+    height:100%;
+}
+
+.page-main > aside li {
+    margin: 0 px;
+    position: relative;
+    text-shadow: 0px 0px 20px rgba(0,162,232,1);
+	font-weight:bold;
+	text-decoration:none;
+	color:rgba(0,162,232,1);
+	font-family: '微軟正黑體';
+	font-size: 18px;
+	top:3px;
+	list-style-position: inside;
+}
+
+.page-main > aside li:hover {
+	cursor: pointer;
+}
+
+.page-main > aside button {
+	background: none;
+    display: block;
+    position: absolute;
+    top: 150px;
+    left: 350px;
+    width: 52px;
+    height: 132px;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.page-main > aside button:hover {
+	cursor: pointer;	
+}
+
+/*
+ * Helpers
+ */
+
+/* Clearfix */
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+
+

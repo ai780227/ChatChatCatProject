@@ -1,0 +1,35 @@
+	/*聊天室的css*/
+
+	.chat_block_background {			/*適用各瀏覽器的聊天室背景漸層*/
+		background-image: -ms-linear-gradient(top, #FFFFFF 0%, #DEEFEC 100%);	/* IE10 Consumer Preview */ 
+		background-image: -moz-linear-gradient(top, #FFFFFF 0%, #DEEFEC 100%);	/* Mozilla Firefox */
+		background-image: -o-linear-gradient(top, #FFFFFF 0%, #DEEFEC 100%);	/* Opera */ 
+		background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFFFFF), color-stop(1, #DEEFEC));	/* Webkit (Safari/Chrome 10) */ 
+		background-image: -webkit-linear-gradient(top, #FFFFFF 0%, #DEEFEC 100%);	/* Webkit (Chrome 11+) */ 
+		background-image: linear-gradient(to bottom, #FFFFFF 0%, #DEEFEC 100%);		/* W3C Markup, IE10 Release Preview */ 
+	}
+	.chat_message_me { clear:both; float:right;
+					   width:auto;max-width:180px;
+					   text-align:right; 
+					   border:1px solid none; margin:5px ;padding:3px;
+					   font-size:x-small ;color:#7da4cc;
+					   background-color:#f1d9ff; border-radius:5px; box-shadow:3px 3px 3px;
+	}
+	.chat_message_you { clear:both; float:left;
+						width:width:auto;max-width:180px;
+						border:1px solid none; margin:5px; padding:3px;
+						font-size:x-small ; color:#7da4cc;
+						background-color:#f1d9ff; border-radius:5px; box-shadow:3px 3px 3px;
+	}
+	.chat_message_in_me { word-wrap:break-word ;
+						  clear:both; float:right;
+						  width:auto; max-width:180px;
+						  border:1px; margin:3px; 
+						  font-size:medium; font-family:微軟正黑體; color:#4d4d4d;
+	}
+	.chat_message_in_you { word-wrap:break-word ;
+						   clear:both; float:left;
+						   width:auto; max-width:180px;
+						   border:1px; margin:3px;
+						   font-size:medium; font-family: 微軟正黑體;color:#4d4d4d;
+	}
