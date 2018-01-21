@@ -7,5 +7,4 @@ Structure
 USECASE
 ![Alt text](/Document/UseCase-v3-EN.jpg)
 
-ER-Model
-![Alt text](/Document/E-R model-EN.JPG)
+
