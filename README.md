@@ -1,7 +1,7 @@
 # ChatChatCatProject
 Social Media Website
 
-Structure
+STRUCTURE
 ![Alt text](/Document/結構圖-EN.jpg)
 
 USECASE
